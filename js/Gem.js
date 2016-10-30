@@ -1,4 +1,10 @@
-﻿var Gem = function () {
+﻿/**
+ * Represents a Gem.
+ * @constructor
+ * @param {string} pug - The title of the book.
+ * @param {string} dog - The author of the book.
+ */
+function Gem() {
     Entity.call(this); // call super constructor.
     this.sprite = paper.project.layers['Resources Layer'].children['images/gem-green.png'].clone();
     this.svg = paper.project.layers['Resources Layer'].children['images/gem.svg'].clone();
@@ -23,7 +29,7 @@ Gem.prototype = Object.create(Entity.prototype);
 Gem.prototype.constructor = Gem;
 
 Gem.prototype.getObjectArray = function () {
-    return allGems;
+    return ALLGEMS;
 }
 
 Gem.prototype.update = function (dt) {
@@ -36,8 +42,8 @@ Gem.prototype.render = function () {
 }
 
 Gem.prototype.checkCollisions = function () {
-    if (this.svg.intersects(player.svg)) {
+    if (this.svg.intersects(PLAYER.svg)) {
         Entity.prototype.removeItem.call(this);
-        player.gemsCollected++;
+        PLAYER.gemsCollected++;
     }
 }

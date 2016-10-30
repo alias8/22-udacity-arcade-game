@@ -1,4 +1,12 @@
-﻿var Entity = function () {
+﻿/**
+ * The super class to Player, Enemy, Gem, and Rock. Suitable for all future classes that move across the canvas.
+ * 
+ * @constructor
+ * @param {string} title - The title of the book.
+ * @param {string} author - The author of the book.
+ */
+
+function Entity() {
     this.sprite = undefined;
     this.svg = undefined;
     this.rectangle = new paper.Path.Rectangle(new paper.Point(0, 0), new paper.Size(101, 171));

@@ -1,4 +1,4 @@
-﻿var Rock = function () {
+﻿function Rock() {
     Gem.call(this); // call super constructor.
     this.sprite = paper.project.layers['Resources Layer'].children['images/Rock.png'].clone();
     this.svg = paper.project.layers['Resources Layer'].children['images/rock.svg'].clone();
@@ -26,7 +26,7 @@ Rock.prototype = Object.create(Gem.prototype);
 Rock.prototype.constructor = Rock;
 
 Rock.prototype.getObjectArray = function () {
-    return allRocks;
+    return ALLROCKS;
 }
 
 Rock.prototype.update = function (dt, count) {
@@ -42,8 +42,8 @@ Rock.prototype.render = function () {
 }
 
 Rock.prototype.checkCollisions = function () {
-    if (this.svg.intersects(player.svg)) {
-        player.alive = false;
+    if (this.svg.intersects(PLAYER.svg)) {
+        PLAYER.alive = false;
     }
 }
 

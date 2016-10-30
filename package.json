@@ -1,0 +1,23 @@
+{
+  "name": "22-udacity-arcade-game",
+  "version": "1.0.0",
+  "description": "Use a web server to run index.html and play my version of frogger. This is a fork of the original [here](https://github.com/udacity/frontend-nanodegree-arcade-game).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alias8/22-udacity-arcade-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alias8/22-udacity-arcade-game/issues"
+  },
+  "homepage": "https://github.com/alias8/22-udacity-arcade-game#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jsdoc3": "^1.0.0"
+  }
+}

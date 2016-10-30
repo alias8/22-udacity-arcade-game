@@ -1,8 +1,8 @@
-﻿var allEnemies;
-var player;
-var scoreBoard;
-var allGems;
-var allRocks;
+﻿var ALLENEMIES;
+var PLAYER;
+var SCOREBOARD;
+var ALLGEMS;
+var ALLROCKS;
 
 document.addEventListener('keyup', function (e) {
     var allowedKeys = {
@@ -12,7 +12,7 @@ document.addEventListener('keyup', function (e) {
         40: 'down'
     };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+    PLAYER.handleInput(allowedKeys[e.keyCode]);
 });
 
 function getRandomIntInclusive(min, max) {

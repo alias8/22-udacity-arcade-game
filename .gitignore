@@ -1,3 +1,4 @@
 packages.config
 Web.config
 Web.Debug.config
+node_modules

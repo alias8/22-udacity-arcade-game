@@ -1,4 +1,4 @@
-﻿var Enemy = function () {
+﻿function Enemy() {
     Entity.call(this); // call super constructor.
     console.log ('enemy constructor called');
     this.svg = paper.project.layers['Resources Layer'].children['images/enemy-bug.svg'].clone();
@@ -24,13 +24,13 @@ Enemy.prototype = Object.create(Entity.prototype);
 Enemy.prototype.constructor = Enemy;
 
 Enemy.prototype.checkCollisions = function () {
-    if (this.svg.intersects(player.svg)) {
-        player.alive = false;
+    if (this.svg.intersects(PLAYER.svg)) {
+        PLAYER.alive = false;
     }
 }
 
 Enemy.prototype.getObjectArray = function () {
-    return allEnemies;
+    return ALLENEMIES;
 }
 
 Enemy.prototype.update = function (dt) {

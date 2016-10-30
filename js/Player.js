@@ -1,4 +1,4 @@
-﻿var Player = function () {
+﻿function Player() {
     Entity.call(this); // call super constructor.
     this.svg = paper.project.layers['Resources Layer'].children['images/char-boy.svg'].clone();
     this.sprite = paper.project.layers['Resources Layer'].children['images/char-boy.png'].clone();
@@ -58,7 +58,7 @@ Player.prototype.update = function (dt) {
     } else if (0 < Math.abs(this.rectangle.bounds.topLeft.x - this.endX) && Math.abs(this.rectangle.bounds.topLeft.x - this.endX) < withinPixels) { // small x to move
         this.moveEntity(this.endX, this.endY);
         this.stopped = true;
-    } else { // for start and when player dies
+    } else { // for start and when PLAYER dies
         this.moveEntity(this.endX, this.endY);
         this.stopped = true;
     }
@@ -88,7 +88,7 @@ Player.prototype.handleInput = function (key) {
         switch (key) {
             case 'left':
                 tempSvg.position = new paper.Point(this.svg.position.x - this.moveHorizontal, this.svg.position.y);
-                allRocks.forEach(function (rock) {
+                ALLROCKS.forEach(function (rock) {
                     if (rock.svg.contains (tempSvg.position)) moveAllowed = false;
                 });
                 if (moveAllowed) {
@@ -98,7 +98,7 @@ Player.prototype.handleInput = function (key) {
                 break;
             case 'right':
                 tempSvg.position = new paper.Point(this.svg.position.x + this.moveHorizontal, this.svg.position.y);
-                allRocks.forEach(function (rock) {
+                ALLROCKS.forEach(function (rock) {
                     if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
                 });
                 if (moveAllowed) {
@@ -108,7 +108,7 @@ Player.prototype.handleInput = function (key) {
                 break;
             case 'up':
                 tempSvg.position = new paper.Point(this.svg.position.x, this.svg.position.y - this.moveVertical);
-                allRocks.forEach(function (rock) {
+                ALLROCKS.forEach(function (rock) {
                     if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
                 });
                 if (moveAllowed) {
@@ -122,7 +122,7 @@ Player.prototype.handleInput = function (key) {
                 break;
             case 'down':
                 tempSvg.position = new paper.Point(this.svg.position.x, this.svg.position.y + this.moveVertical);
-                allRocks.forEach(function (rock) {
+                ALLROCKS.forEach(function (rock) {
                     if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
                 });
                 if (moveAllowed) {

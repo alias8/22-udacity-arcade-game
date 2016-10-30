@@ -1,13 +1,12 @@
 ﻿var initialised = false;
 
 function init() {
-    // todo: write readme and proper comments for bigger functions, then submit
     console.log('init called!');
-    allEnemies = [];
-    player = new Player();
-    scoreBoard = new ScoreBoard();
-    allGems = [];
-    allRocks = [];
+    ALLENEMIES = [];
+    PLAYER = new Player();
+    SCOREBOARD = new ScoreBoard();
+    ALLGEMS = [];
+    ALLROCKS = [];
 
     var rowImages = [
         'images/water-block.png',
@@ -35,15 +34,15 @@ function init() {
     }
 
     for (var i = 0; i < 1; i++) {
-        allEnemies.push(new Enemy());
+        ALLENEMIES.push(new Enemy());
     }
 
     for (var i = 0; i < 1; i++) {
-        allGems.push(new Gem());
+        ALLGEMS.push(new Gem());
     }
 
     for (var i = 0; i < 1; i++) {
-        allRocks.push(new Rock());
+        ALLROCKS.push(new Rock());
     }
 
     initialised = true;
@@ -56,7 +55,7 @@ function init() {
 function update(event) {
     var dt = event.delta;
     var count = event.count;
-    dt = 0.015; // delte this line when program finished
+    //dt = 0.015; // delte this line when program finished
     updateEntities(dt, count);
     addNewEnemies();
     addNewGems();
@@ -65,40 +64,40 @@ function update(event) {
 }
 
 function updateEntities(dt, count) {
-    allEnemies.forEach(function (enemy) {
+    ALLENEMIES.forEach(function (enemy) {
         enemy.update(dt);
     });
-    player.update(dt);
-    scoreBoard.update();
-    allGems.forEach(function (gem) {
+    PLAYER.update(dt);
+    SCOREBOARD.update();
+    ALLGEMS.forEach(function (gem) {
         gem.update(dt);
     });
-    allRocks.forEach(function (rock) {
+    ALLROCKS.forEach(function (rock) {
         rock.update(dt, count);
     });
 
 }
 
 function addNewEnemies() {
-    if (allEnemies.length < 3) allEnemies.push(new Enemy());
+    if (ALLENEMIES.length < 3) ALLENEMIES.push(new Enemy());
 }
 
 function addNewGems() {
-    if (allGems.length < 1) allGems.push(new Gem());
+    if (ALLGEMS.length < 1) ALLGEMS.push(new Gem());
 }
 
 function addNewRocks() {
-    if (allRocks.length < 2) allRocks.push(new Rock());
+    if (ALLROCKS.length < 2) ALLROCKS.push(new Rock());
 }
 
 function checkCollisions() {
-    allEnemies.forEach(function (enemy) {
+    ALLENEMIES.forEach(function (enemy) {
         enemy.checkCollisions();
     });
-    allGems.forEach(function (gem) {
+    ALLGEMS.forEach(function (gem) {
         gem.checkCollisions();
     });
-    allRocks.forEach(function (rock) {
+    ALLROCKS.forEach(function (rock) {
         rock.checkCollisions();
     });
 }
@@ -110,35 +109,18 @@ function render() {
 }
 
 function renderEntities() {
-    allEnemies.forEach(function (enemy) {
+    ALLENEMIES.forEach(function (enemy) {
         enemy.render();
     });
 
-    player.render();
-    scoreBoard.render();
-    allGems.forEach(function (gem) {
+    PLAYER.render();
+    SCOREBOARD.render();
+    ALLGEMS.forEach(function (gem) {
         gem.render();
     });
-    allRocks.forEach(function (rock) {
+    ALLROCKS.forEach(function (rock) {
         rock.render();
     });
-}
-
-document.addEventListener('keyup', function (e) {
-    var allowedKeys = {
-        32: 'space'
-    };
-    document.handleDebugInput(allowedKeys[e.keyCode]);
-});
-
-document.handleDebugInput = function (key) {
-    if (key === 'space') {
-        debugger;
-        var a1 = project.activeLayer.children;
-        var a2 = a1['test raster'];
-        var a3 = a1['should not be found'];
-        var b = 2;
-    }
 }
 
 
