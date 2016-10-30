@@ -6,6 +6,14 @@
  * @param {string} author - The author of the book.
  */
 
+var map = new WeakMap();
+
+var internal = function (object) {
+    if (!map.has(object))
+        map.set(object, {});
+    return map.get(object);
+}
+
 function Entity() {
     this.sprite = undefined;
     this.svg = undefined;
