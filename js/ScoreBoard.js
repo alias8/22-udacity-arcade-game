@@ -16,3 +16,4 @@ ScoreBoard.prototype.render = function () {
     this.reachedWaterCount.bringToFront();
     this.gemsCollectedCount.bringToFront();
 }
+

@@ -1,145 +1,171 @@
-﻿function Player() {
-    Entity.call(this); // call super constructor.
-    this.svg = paper.project.layers['Resources Layer'].children['images/char-boy.svg'].clone();
-    this.sprite = paper.project.layers['Resources Layer'].children['images/char-boy.png'].clone();
-    entitiesLayer.addChild(this.svg);
-    entitiesLayer.addChild(this.sprite);
-    entitiesLayer.addChild(this.rectangle);
-    this.positionText = new paper.PointText(new paper.Point(15, 15));
-    this.positionText.visible = false;
-
-    this.alive = true;
-    this.deathSpeed = 0.02;
-    this.reachedWaterCount = 0;
-    this.gemsCollected = 0;
-    this.speed = 1500;
-    this.stopped = true;
-
-    this.sprite.scale(0.9, 0.9);
-    this.svg.scale(0.9, 0.9);
-    this.svgAdjustX = 19;
-    this.svgAdjustY = 86;
-    this.spriteAdjustY = 22;
-
-    this.moveHorizontal = 101;
-    this.moveVertical = 83;
-    this.startX = 2 * 101;
-    this.startY = this.moveVertical*4; // 352
-    this.moveEntity (this.startX, this.startY);
-    this.endX = this.rectangle.bounds.topLeft.x;
-    this.endY = this.rectangle.bounds.topLeft.y;
-
-}
-Player.prototype = Object.create(Entity.prototype);
-Player.prototype.constructor = Player;
-
-Player.prototype.update = function (dt) {
-    if (this.sprite.opacity <= 0) {
-        this.alive = true;
-        this.moveEntity(this.startX, this.startY);
-        this.endX = this.rectangle.bounds.topLeft.x;
-        this.endY = this.rectangle.bounds.topLeft.y;
-        this.sprite.opacity = 1;
+﻿var Player = (function () {
+    var map = new WeakMap();
+    var internal = function (object) {
+        if (!map.has(object))
+            map.set(object, {});
+        return map.get(object);
     }
-    var withinPixels = this.speed * dt;
-    if (this.rectangle.bounds.topLeft.y + withinPixels <= this.endY) { // big down
-        Entity.prototype.update.call(this, dt, [0, 1]);
-    } else if (this.rectangle.bounds.topLeft.y - withinPixels >= this.endY) { // big up
-        Entity.prototype.update.call(this, dt, [0, -1]);
-    } else if (this.rectangle.bounds.topLeft.x + withinPixels <= this.endX) { // big right
-        Entity.prototype.update.call(this, dt, [1, 0]);
-    } else if (this.rectangle.bounds.topLeft.x - withinPixels >= this.endX) { // big left
-        Entity.prototype.update.call(this, dt, [-1, 0]);
-    } else if (0 < Math.abs(this.rectangle.bounds.topLeft.y - this.endY) && Math.abs(this.rectangle.bounds.topLeft.y - this.endY) < withinPixels) { // small y to move
-        // small y to move. we test for greater than zero to prevent something like this:
-        // big right called several times, we expect last move until we get to endX to be done inside "small x to move" part, but we need to prevent "small y to move" part being used
-        this.moveEntity(this.endX, this.endY);
-        this.stopped = true;
-    } else if (0 < Math.abs(this.rectangle.bounds.topLeft.x - this.endX) && Math.abs(this.rectangle.bounds.topLeft.x - this.endX) < withinPixels) { // small x to move
-        this.moveEntity(this.endX, this.endY);
-        this.stopped = true;
-    } else { // for start and when PLAYER dies
-        this.moveEntity(this.endX, this.endY);
-        this.stopped = true;
+
+    function Player() {
+        Entity.call(this); // call super constructor.
+        Entity.prototype.convertPropertiesToPrivate.call(this); // copy public members from parent to private container of this class
+
+        internal(this).svg = paper.project.layers['Resources Layer'].children['images/char-boy.svg'].clone();
+        internal(this).sprite = paper.project.layers['Resources Layer'].children['images/char-boy.png'].clone();
+        ENTITIESLAYER.addChild(internal(this).svg);
+        ENTITIESLAYER.addChild(internal(this).sprite);
+        ENTITIESLAYER.addChild(internal(this).rectangle);
+        internal(this).positionText = new paper.PointText(new paper.Point(15, 15));
+        internal(this).positionText.visible = false;
+
+        internal(this).alive = true;
+        internal(this).deathSpeed = 0.02;
+        internal(this).reachedWaterCount = 0;
+        internal(this).gemsCollected = 0;
+        internal(this).speed = 1500;
+        internal(this).stopped = true;
+
+        internal(this).sprite.scale(0.9, 0.9);
+        internal(this).svg.scale(0.9, 0.9);
+        internal(this).svgAdjustX = 19;
+        internal(this).svgAdjustY = 86;
+        internal(this).spriteAdjustX = 0;
+        internal(this).spriteAdjustY = 22;
+
+        internal(this).moveHorizontal = 101;
+        internal(this).moveVertical = 83;
+        internal(this).startX = 2 * 101;
+        internal(this).startY = internal(this).moveVertical * 4;
+        Entity.prototype.moveEntity.call(this, internal(this).startX, internal(this).startY);
+        internal(this).endX = internal(this).rectangle.bounds.topLeft.x;
+        internal(this).endY = internal(this).rectangle.bounds.topLeft.y;
     }
-}
+    Player.prototype = Object.create(Entity.prototype);
+    Player.prototype.constructor = Player;
 
-Player.prototype.render = function () {
-    Entity.prototype.render.call(this);
-
-    this.positionText.content =
-        'TL: (' + this.rectangle.bounds.topLeft.x.toFixed(2) + ', ' + this.rectangle.bounds.topLeft.y.toFixed(2) + ')' +
-        'TR: (' + this.rectangle.bounds.topRight.x.toFixed(2) + ', ' + this.rectangle.bounds.topRight.y.toFixed(2) + ')' +
-        'BL: (' + this.rectangle.bounds.bottomLeft.x.toFixed(2) + ', ' + this.rectangle.bounds.bottomLeft.y.toFixed(2) + ')' +
-        'BR: (' + this.rectangle.bounds.bottomRight.x.toFixed(2) + ', ' + this.rectangle.bounds.bottomRight.y.toFixed(2) + ')';
-
-    if (!this.alive) {
-        this.sprite.opacity -= this.deathSpeed;
+    Player.prototype.getInternal = function () {
+        return internal;
     }
-};
 
-/*
+    Player.prototype.getSVG = function () {
+        return internal(this).svg;
+    }
 
-*/
-Player.prototype.handleInput = function (key) {
-    if (this.stopped) {
-        var tempSvg = this.svg.clone();
-        var moveAllowed = true;
-        switch (key) {
-            case 'left':
-                tempSvg.position = new paper.Point(this.svg.position.x - this.moveHorizontal, this.svg.position.y);
-                ALLROCKS.forEach(function (rock) {
-                    if (rock.svg.contains (tempSvg.position)) moveAllowed = false;
-                });
-                if (moveAllowed) {
-                    (this.rectangle.bounds.topLeft.x - this.moveHorizontal < 0) ? this.endX -= 0 : this.endX -= this.moveHorizontal;
-                    this.stopped = false;
-                }
-                break;
-            case 'right':
-                tempSvg.position = new paper.Point(this.svg.position.x + this.moveHorizontal, this.svg.position.y);
-                ALLROCKS.forEach(function (rock) {
-                    if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
-                });
-                if (moveAllowed) {
-                    (this.rectangle.bounds.topRight.x + this.moveHorizontal > paper.view.viewSize.width) ? this.endX += 0 : this.endX += this.moveHorizontal;
-                    this.stopped = false;
-                }
-                break;
-            case 'up':
-                tempSvg.position = new paper.Point(this.svg.position.x, this.svg.position.y - this.moveVertical);
-                ALLROCKS.forEach(function (rock) {
-                    if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
-                });
-                if (moveAllowed) {
-                    if (this.rectangle.bounds.topLeft.y - this.moveVertical < 0) {
-                        this.reachWaterPoint();
-                    } else {
-                        this.endY -= this.moveVertical;
-                        this.stopped = false;
-                    }
-                }
-                break;
-            case 'down':
-                tempSvg.position = new paper.Point(this.svg.position.x, this.svg.position.y + this.moveVertical);
-                ALLROCKS.forEach(function (rock) {
-                    if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
-                });
-                if (moveAllowed) {
-                    (this.rectangle.bounds.bottomLeft.y + this.moveVertical > paper.view.viewSize.height) ? this.endY += 0 : this.endY += this.moveVertical;
-                    this.stopped = false;
-                }
-                break;
+    Player.prototype.killPlayer = function () {
+        internal (this).alive = false;
+    }
+
+    Player.prototype.incrementGemCollected = function () {
+        internal (this).gemsCollected++;
+    }
+    
+    Player.prototype.update = function (dt) {
+        if (internal(this).sprite.opacity <= 0) {
+            internal(this).alive = true;
+            Entity.prototype.moveEntity.call(this, internal(this).startX, internal(this).startY);
+            internal(this).endX = internal(this).rectangle.bounds.topLeft.x;
+            internal(this).endY = internal(this).rectangle.bounds.topLeft.y;
+            internal(this).sprite.opacity = 1;
         }
-        tempSvg.remove();
+        var withinPixels = internal(this).speed * dt;
+        if (internal(this).rectangle.bounds.topLeft.y + withinPixels <= internal(this).endY) { // big down
+            Entity.prototype.update.call(this, dt, [0, 1]);
+        } else if (internal(this).rectangle.bounds.topLeft.y - withinPixels >= internal(this).endY) { // big up
+            Entity.prototype.update.call(this, dt, [0, -1]);
+        } else if (internal(this).rectangle.bounds.topLeft.x + withinPixels <= internal(this).endX) { // big right
+            Entity.prototype.update.call(this, dt, [1, 0]);
+        } else if (internal(this).rectangle.bounds.topLeft.x - withinPixels >= internal(this).endX) { // big left
+            Entity.prototype.update.call(this, dt, [-1, 0]);
+        } else if (0 < Math.abs(internal(this).rectangle.bounds.topLeft.y - internal(this).endY) && Math.abs(internal(this).rectangle.bounds.topLeft.y - internal(this).endY) < withinPixels) { // small y to move
+            // small y to move. we test for greater than zero to prevent something like this:
+            // big right called several times, we expect last move until we get to endX to be done inside "small x to move" part, but we need to prevent "small y to move" part being used
+            Entity.prototype.moveEntity.call(this, internal(this).endX, internal(this).endY);
+            internal(this).stopped = true;
+        } else if (0 < Math.abs(internal(this).rectangle.bounds.topLeft.x - internal(this).endX) && Math.abs(internal(this).rectangle.bounds.topLeft.x - internal(this).endX) < withinPixels) { // small x to move
+            Entity.prototype.moveEntity.call(this, internal(this).endX, internal(this).endY);
+            internal(this).stopped = true;
+        } else { // for start and when PLAYER dies
+            Entity.prototype.moveEntity.call(this, internal(this).endX, internal(this).endY);
+            internal(this).stopped = true;
+        }
     }
 
-}
+    Player.prototype.render = function () {
+        Entity.prototype.render.call(this);
 
-Player.prototype.reachWaterPoint = function () {
-    this.reachedWaterCount += 1;
-    this.moveEntity(this.startX, this.startY);
-    this.endX = this.rectangle.bounds.topLeft.x;
-    this.endY = this.rectangle.bounds.topLeft.y;
-    this.stopped = true;
-}
+        internal(this).positionText.content =
+            'TL: (' + internal(this).rectangle.bounds.topLeft.x.toFixed(2) + ', ' + internal(this).rectangle.bounds.topLeft.y.toFixed(2) + ')' +
+            'TR: (' + internal(this).rectangle.bounds.topRight.x.toFixed(2) + ', ' + internal(this).rectangle.bounds.topRight.y.toFixed(2) + ')' +
+            'BL: (' + internal(this).rectangle.bounds.bottomLeft.x.toFixed(2) + ', ' + internal(this).rectangle.bounds.bottomLeft.y.toFixed(2) + ')' +
+            'BR: (' + internal(this).rectangle.bounds.bottomRight.x.toFixed(2) + ', ' + internal(this).rectangle.bounds.bottomRight.y.toFixed(2) + ')';
+
+        if (!internal(this).alive) {
+            internal(this).sprite.opacity -= internal(this).deathSpeed;
+        }
+    };
+
+    Player.prototype.handleInput = function (key) {
+        if (internal(this).stopped) {
+            var tempSvg = internal(this).svg.clone();
+            var moveAllowed = true;
+            switch (key) {
+                case 'left':
+                    tempSvg.position = new paper.Point(internal(this).svg.position.x - internal(this).moveHorizontal, internal(this).svg.position.y);
+                    ALLROCKS.forEach(function (rock) {
+                        if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
+                    });
+                    if (moveAllowed) {
+                        (internal(this).rectangle.bounds.topLeft.x - internal(this).moveHorizontal < 0) ? internal(this).endX -= 0 : internal(this).endX -= internal(this).moveHorizontal;
+                        internal(this).stopped = false;
+                    }
+                    break;
+                case 'right':
+                    tempSvg.position = new paper.Point(internal(this).svg.position.x + internal(this).moveHorizontal, internal(this).svg.position.y);
+                    ALLROCKS.forEach(function (rock) {
+                        if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
+                    });
+                    if (moveAllowed) {
+                        (internal(this).rectangle.bounds.topRight.x + internal(this).moveHorizontal > paper.view.viewSize.width) ? internal(this).endX += 0 : internal(this).endX += internal(this).moveHorizontal;
+                        internal(this).stopped = false;
+                    }
+                    break;
+                case 'up':
+                    tempSvg.position = new paper.Point(internal(this).svg.position.x, internal(this).svg.position.y - internal(this).moveVertical);
+                    ALLROCKS.forEach(function (rock) {
+                        if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
+                    });
+                    if (moveAllowed) {
+                        if (internal(this).rectangle.bounds.topLeft.y - internal(this).moveVertical < 0) {
+                            internal(this).reachWaterPoint();
+                        } else {
+                            internal(this).endY -= internal(this).moveVertical;
+                            internal(this).stopped = false;
+                        }
+                    }
+                    break;
+                case 'down':
+                    tempSvg.position = new paper.Point(internal(this).svg.position.x, internal(this).svg.position.y + internal(this).moveVertical);
+                    ALLROCKS.forEach(function (rock) {
+                        if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
+                    });
+                    if (moveAllowed) {
+                        (internal(this).rectangle.bounds.bottomLeft.y + internal(this).moveVertical > paper.view.viewSize.height) ? internal(this).endY += 0 : internal(this).endY += internal(this).moveVertical;
+                        internal(this).stopped = false;
+                    }
+                    break;
+            }
+            tempSvg.remove();
+        }
+
+    }
+
+    Player.prototype.reachWaterPoint = function () {
+        internal(this).reachedWaterCount += 1;
+        internal(this).moveEntity(internal(this).startX, internal(this).startY);
+        internal(this).endX = internal(this).rectangle.bounds.topLeft.x;
+        internal(this).endY = internal(this).rectangle.bounds.topLeft.y;
+        internal(this).stopped = true;
+    }
+
+    return Player;
+})();

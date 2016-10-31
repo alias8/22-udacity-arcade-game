@@ -1,6 +1,7 @@
 ﻿var initialised = false;
 
 function init() {
+    // todo: complete weakmap implementation with Gem and Rock
     console.log('init called!');
     ALLENEMIES = [];
     PLAYER = new Player();
@@ -46,7 +47,6 @@ function init() {
     }
 
     initialised = true;
-
 }
 
 
@@ -55,7 +55,7 @@ function init() {
 function update(event) {
     var dt = event.delta;
     var count = event.count;
-    //dt = 0.015; // delte this line when program finished
+    dt = 0.015; // delete this line when program finished
     updateEntities(dt, count);
     addNewEnemies();
     addNewGems();
@@ -73,7 +73,7 @@ function updateEntities(dt, count) {
         gem.update(dt);
     });
     ALLROCKS.forEach(function (rock) {
-        rock.update(dt, count);
+        rock.update(dt);
     });
 
 }
@@ -104,7 +104,7 @@ function checkCollisions() {
 
 function render() {
     renderEntities();
-    entitiesLayer.bringToFront();
+    ENTITIESLAYER.bringToFront();
     
 }
 

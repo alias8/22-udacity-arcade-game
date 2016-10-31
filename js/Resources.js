@@ -19,7 +19,7 @@
     }
 
     function _load(url) {
-        resourcesLayer.activate();
+        RESOURCESLAYER.activate();
         if (url.endsWith('.png')) {
             var image = new paper.Raster(url);
             image.onLoad = function () {
@@ -39,7 +39,7 @@
                     var path = svgParent.children.svg_element.children[0];
                     path.name = url;
                     path.visible = false;
-                    resourcesLayer.addChild(path);
+                    RESOURCESLAYER.addChild(path);
                     svgParent.remove();
                     if (isReady()) {
                         readyCallbacks.forEach(function (func) { func(); });
@@ -73,19 +73,19 @@
 })();
 
 paper.install(window);
-var resourcesLayer;
-var entitiesLayer;
+var RESOURCESLAYER;
+var ENTITIESLAYER;
 window.onload = function () {
     console.log ('window loaded');
     paper.setup('myCanvas');
     paper.view.viewSize.width = 505;
     paper.view.viewSize.height = 606;
 
-    resourcesLayer = new paper.Layer();
-    resourcesLayer.bringToFront ();
-    entitiesLayer = new paper.Layer ();
-    resourcesLayer.name = 'Resources Layer';
-    entitiesLayer.name = 'Entities Layer';
+    RESOURCESLAYER = new paper.Layer();
+    RESOURCESLAYER.bringToFront ();
+    ENTITIESLAYER = new paper.Layer ();
+    RESOURCESLAYER.name = 'Resources Layer';
+    ENTITIESLAYER.name = 'Entities Layer';
 
     Resources.load(images);
     Resources.onReady(init);
