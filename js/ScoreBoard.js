@@ -1,19 +1,28 @@
-﻿function ScoreBoard() {
-    this.reachedWaterCount = new paper.PointText(new paper.Point(30, 550));
-    this.reachedWaterCount.fontSize = 20;
-    this.gemsCollectedCount = new paper.PointText(new paper.Point(30, 580));
-    this.gemsCollectedCount.fontSize = 20;
-}
+﻿var ScoreBoard = (function () {
+    var map = new WeakMap();
+    var internal = function (object) {
+        if (!map.has(object))
+            map.set(object, {});
+        return map.get(object);
+    }
 
-ScoreBoard.prototype.update = function () {
-    this.reachedWaterCount.content = 'Times Reached Water: ' + PLAYER.reachedWaterCount;
-    //this.reachedWaterCount.content = 'Times Reached Water: ' + PLAYER.reachedWaterCountGetter;
-    //var test = PLAYER.reachedWaterCount;
-    this.gemsCollectedCount.content = 'Gems Collected: ' + PLAYER.gemsCollected;
-}
+    function ScoreBoard() {
+        internal(this).reachedWaterCount = new paper.PointText(new paper.Point(30, 550));
+        internal(this).reachedWaterCount.fontSize = 20;
+        internal(this).gemsCollectedCount = new paper.PointText(new paper.Point(30, 580));
+        internal(this).gemsCollectedCount.fontSize = 20;
+    }
 
-ScoreBoard.prototype.render = function () {
-    this.reachedWaterCount.bringToFront();
-    this.gemsCollectedCount.bringToFront();
-}
+    ScoreBoard.prototype.update = function () {
+        internal(this).reachedWaterCount.content = 'Times Reached Water: ' + PLAYER.getReachedWaterCount();
+        internal(this).gemsCollectedCount.content = 'Gems Collected: ' + PLAYER.getGemsCollectedCount();
+    }
+
+    ScoreBoard.prototype.render = function () {
+        internal(this).reachedWaterCount.bringToFront();
+        internal(this).gemsCollectedCount.bringToFront();
+    }
+
+    return ScoreBoard;
+})();
 

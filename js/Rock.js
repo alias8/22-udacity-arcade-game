@@ -46,6 +46,10 @@
         return internal;
     }
 
+    Rock.prototype.getSVG = function () {
+        return internal(this).svg;
+    }
+
     Rock.prototype.update = function (dt) {
         if (internal(this).rectangle.bounds.topLeft.y >= internal(this).endY) {
             internal(this).stopped = true;
@@ -60,7 +64,7 @@
 
     Rock.prototype.checkCollisions = function () {
         if (internal(this).svg.intersects(PLAYER.svg)) {
-            PLAYER.alive = false;
+            PLAYER.killPlayer();
         }
     }
 

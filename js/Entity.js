@@ -1,12 +1,11 @@
-﻿/**
- * The super class to Player, Enemy, Gem, and Rock. Suitable for all future classes that move across the canvas.
- * 
- * @constructor
- * @param {string} title - The title of the book.
- * @param {string} author - The author of the book.
- */
+﻿
 var Entity = (function () {
+    /** @lends Entity# */
 
+    /**
+ * The super class to Player, Enemy, Gem, and Rock. Suitable for all future classes that move across the canvas.
+ * @constructs Entity
+ */
     function Entity() { // public properties to be inherited and possibly overwritten
         this.sprite = undefined;
         this.svg = undefined;
@@ -21,6 +20,10 @@ var Entity = (function () {
         this.spriteAdjustY = 0;
     }
 
+    /**
+     * Called in subclasses immediately after calling Entity constructor. Converts public accessible properties of Entity such as
+       sprite, svg, stopped to private properties accessible only through the internal(this) prefix. 
+     */
     Entity.prototype.convertPropertiesToPrivate = function () {
         var internal = this.getInternal();
         for (var name in this) {
@@ -33,8 +36,9 @@ var Entity = (function () {
     }
 
 
-
-
+    /**
+    * Render entity to canvas. Called during each frame. 
+    */
     Entity.prototype.render = function () {
         var internal = this.getInternal ();
         internal(this).sprite.visible = true;
@@ -46,6 +50,15 @@ var Entity = (function () {
         ENTITIESLAYER.bringToFront();
     }
 
+    /**
+ * Update position of entity when direction and seconds since last update are known.
+ * @param {number} dt - the time passed in seconds since the last frame event.
+ * @param {array} direction - array of xy coordinates. The components of the unit vector of the direction to move. 
+     * [1, 0] means move right, 
+     * [-1, 0] means move left,
+     * [0, 1] means move down,
+     * [0, -1] means move up
+ */
     Entity.prototype.update = function (dt, direction) {
         var internal = this.getInternal();
         if (!internal(this).stopped) {
@@ -55,6 +68,11 @@ var Entity = (function () {
         }
     }
 
+    /**
+* Update position of entity directly, used on entity construction and during move command of player during last pixels. 
+* @param {number} newTopLeftX - x coordinate of topLeft bounding box (default size is 101x171 pixels).
+* @param {number} newTopLeftY - y coordinate of topLeft bounding box (default size is 101x171 pixels).
+*/
     Entity.prototype.moveEntity = function (newTopLeftX, newTopLeftY) {
         var internal = this.getInternal();
         internal(this).rectangle.position = new paper.Point(newTopLeftX + internal(this).rectangle.bounds.width / 2, newTopLeftY + internal(this).rectangle.bounds.height / 2);
@@ -62,6 +80,10 @@ var Entity = (function () {
         internal(this).svg.position = new paper.Point(internal(this).rectangle.bounds.topLeft.x + internal(this).svg.bounds.width / 2 + internal(this).svgAdjustX, internal(this).rectangle.bounds.topLeft.y + internal(this).svg.bounds.height / 2 + internal(this).svgAdjustY);
     }
 
+
+    /**
+* Remove Entity from its ObjectArray and remove sprites from canvas. Object should no longer be reachable after this function is called. 
+*/
     Entity.prototype.removeItem = function () {
         var internal = this.getInternal();
         var index = this.getObjectArray().indexOf(this);

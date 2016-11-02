@@ -1,4 +1,10 @@
-﻿var Player = (function () {
+﻿
+
+var Player = (function () {
+    /**
+ * Represents the private properties of object. Access properties through internal(this). prefix
+ * @private
+ */
     var map = new WeakMap();
     var internal = function (object) {
         if (!map.has(object))
@@ -6,6 +12,10 @@
         return map.get(object);
     }
 
+    /**
+     * Represents the Player.
+     * @constructor
+     */
     function Player() {
         Entity.call(this); // call super constructor.
         Entity.prototype.convertPropertiesToPrivate.call(this); // copy public members from parent to private container of this class
@@ -52,13 +62,21 @@
     }
 
     Player.prototype.killPlayer = function () {
-        internal (this).alive = false;
+        internal(this).alive = false;
     }
 
     Player.prototype.incrementGemCollected = function () {
-        internal (this).gemsCollected++;
+        internal(this).gemsCollected++;
     }
-    
+
+    Player.prototype.getReachedWaterCount = function () {
+        return internal(this).reachedWaterCount;
+    }
+
+    Player.prototype.getGemsCollectedCount = function () {
+        return internal(this).gemsCollected;
+    }
+
     Player.prototype.update = function (dt) {
         if (internal(this).sprite.opacity <= 0) {
             internal(this).alive = true;
@@ -112,7 +130,7 @@
                 case 'left':
                     tempSvg.position = new paper.Point(internal(this).svg.position.x - internal(this).moveHorizontal, internal(this).svg.position.y);
                     ALLROCKS.forEach(function (rock) {
-                        if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
+                        if (rock.getSVG().contains(tempSvg.position)) moveAllowed = false;
                     });
                     if (moveAllowed) {
                         (internal(this).rectangle.bounds.topLeft.x - internal(this).moveHorizontal < 0) ? internal(this).endX -= 0 : internal(this).endX -= internal(this).moveHorizontal;
@@ -122,7 +140,7 @@
                 case 'right':
                     tempSvg.position = new paper.Point(internal(this).svg.position.x + internal(this).moveHorizontal, internal(this).svg.position.y);
                     ALLROCKS.forEach(function (rock) {
-                        if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
+                        if (rock.getSVG().contains(tempSvg.position)) moveAllowed = false;
                     });
                     if (moveAllowed) {
                         (internal(this).rectangle.bounds.topRight.x + internal(this).moveHorizontal > paper.view.viewSize.width) ? internal(this).endX += 0 : internal(this).endX += internal(this).moveHorizontal;
@@ -132,11 +150,11 @@
                 case 'up':
                     tempSvg.position = new paper.Point(internal(this).svg.position.x, internal(this).svg.position.y - internal(this).moveVertical);
                     ALLROCKS.forEach(function (rock) {
-                        if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
+                        if (rock.getSVG().contains(tempSvg.position)) moveAllowed = false;
                     });
                     if (moveAllowed) {
                         if (internal(this).rectangle.bounds.topLeft.y - internal(this).moveVertical < 0) {
-                            internal(this).reachWaterPoint();
+                            this.reachWater();
                         } else {
                             internal(this).endY -= internal(this).moveVertical;
                             internal(this).stopped = false;
@@ -146,7 +164,7 @@
                 case 'down':
                     tempSvg.position = new paper.Point(internal(this).svg.position.x, internal(this).svg.position.y + internal(this).moveVertical);
                     ALLROCKS.forEach(function (rock) {
-                        if (rock.svg.contains(tempSvg.position)) moveAllowed = false;
+                        if (rock.getSVG().contains(tempSvg.position)) moveAllowed = false;
                     });
                     if (moveAllowed) {
                         (internal(this).rectangle.bounds.bottomLeft.y + internal(this).moveVertical > paper.view.viewSize.height) ? internal(this).endY += 0 : internal(this).endY += internal(this).moveVertical;
@@ -159,9 +177,9 @@
 
     }
 
-    Player.prototype.reachWaterPoint = function () {
+    Player.prototype.reachWater = function () {
         internal(this).reachedWaterCount += 1;
-        internal(this).moveEntity(internal(this).startX, internal(this).startY);
+        this.moveEntity(internal(this).startX, internal(this).startY);
         internal(this).endX = internal(this).rectangle.bounds.topLeft.x;
         internal(this).endY = internal(this).rectangle.bounds.topLeft.y;
         internal(this).stopped = true;
