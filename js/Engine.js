@@ -49,9 +49,6 @@ function init() {
 
 }
 
-
-
-
 function update(event) {
     var dt = event.delta;
     var count = event.count;
