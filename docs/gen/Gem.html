@@ -33,14 +33,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Enemy.html">Enemy</a></li><li><a href="Entity.html">Entity</a></li><li><a href="Gem.html">Gem</a></li><li><a href="Player.html">Player</a></li><li><a href="Rock.html">Rock</a></li>
-				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="global.html#ALLENEMIES">ALLENEMIES</a></li><li><a href="global.html#ALLGEMS">ALLGEMS</a></li><li><a href="global.html#ALLROCKS">ALLROCKS</a></li><li><a href="global.html#getRandomIntInclusive">getRandomIntInclusive</a></li><li><a href="global.html#PLAYER">PLAYER</a></li><li><a href="global.html#SCOREBOARD">SCOREBOARD</a></li>
+					<li><a href="Entity.html">Entity</a></li><li><a href="Gem.html">Gem</a></li>
 				</ul>
 			</li>
 			
@@ -81,8 +74,6 @@
         Gem
         </h2>
         
-            <div class="class-description"><p>Represents gems to be collected by the Player.</p></div>
-        
     
 </header>
 
@@ -93,110 +84,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Gem"><span class="type-signature"></span>new Gem()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="Entity.html">Entity</a></li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        <dl>
-            
-<hr>
-<dt>
-    <h4 class="name" id="checkCollisions"><span class="type-signature"></span>checkCollisions()</h4>
+    <h4 class="name" id="Gem"><span class="type-signature"></span>new Gem(pug, dog)</h4>
     
     
 </dt>
@@ -204,200 +92,7 @@
 
     
     <div class="description">
-        <p>Checks for collision between this SVG and Player SVG.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="Entity.html#checkCollisions">Entity#checkCollisions</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getObjectArray"><span class="type-signature"></span>getObjectArray()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Returns ALLGEMS, the global array storing all current Gem Entities</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        Entity#getObjectArray
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="moveEntity"><span class="type-signature"></span>moveEntity(newTopLeftX, newTopLeftY)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Update the position of the bounding rectangle directly, byassing the update(dt, direction) method.</p>
+        <p>Represents a Gem.</p>
     </div>
     
 
@@ -432,13 +127,13 @@
 
         <tr>
             
-                <td class="name"><code>newTopLeftX</code></td>
+                <td class="name"><code>pug</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -449,20 +144,20 @@
 
             
 
-            <td class="description last"><p>The x value of the top left corner of the bounding rectangle, in global coordinates.</p></td>
+            <td class="description last"><p>The title of the book.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>newTopLeftY</code></td>
+                <td class="name"><code>dog</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -473,7 +168,7 @@
 
             
 
-            <td class="description last"><p>The y value of the top left corner of the bounding rectangle, in global coordinates.</p></td>
+            <td class="description last"><p>The author of the book.</p></td>
         </tr>
 
     
@@ -491,15 +186,6 @@
 	
 
 	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Entity.html#moveEntity">Entity#moveEntity</a>
-			</li>
-		</ul>
-	</dd>
-	
 
     
 
@@ -542,195 +228,12 @@
     
 
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>.</p>
-</div>
-
-
-
-
-        
 
     
 </dd>
 
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="removeItem"><span class="type-signature"></span>removeItem()</h4>
     
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Remove the Entity from canvas and remove from its global objectArray.</p>
     </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Entity.html#removeItem">Entity#removeItem</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>.</p>
-</div>
-
-
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="render"><span class="type-signature"></span>render()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Render the Entity to the canvas.</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Entity.html#render">Entity#render</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="Entity.html#render">Entity#render</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
 
     
 
@@ -741,201 +244,9 @@
     
 
     
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>.</p>
-</div>
-
-
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="update"><span class="type-signature"></span>update(dt, direction)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Update position of entity bounding rectangle when direction and seconds since last update are known.
-[1, 0] means move right, 
-[-1, 0] means move left,
-[0, 1] means move down,
-[0, -1] means move up</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>dt</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>the time passed in seconds since the last frame event.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>direction</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>array of xy coordinates. The components of the unit vector of the direction to move.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-	<dt class="inherited-from method-doc-label method-doc-details-label">Inherited From:</dt>
-	<dd class="inherited-from">
-		<ul class="dummy">
-			<li>
-				<a href="Entity.html#update">Entity#update</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="Entity.html#update">Entity#update</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-
-
-
-        
 
     
-</dd>
 
-        </dl>
     
 
     
@@ -985,7 +296,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a>
 	
-		on November 3rd 2016, 6:19:52 pm
+		on October 29th 2016, 12:31:44 pm
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

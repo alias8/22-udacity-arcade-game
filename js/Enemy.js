@@ -2,7 +2,7 @@
  * Represents bugs to be avoided by the Player.
  * @extends Entity
  */
-class Enemy extends Entity{
+class Enemy extends Entity {
     constructor() {
         super();
         console.log('enemy constructor called');

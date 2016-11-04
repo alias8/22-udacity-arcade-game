@@ -82,7 +82,7 @@ class Entity {
      * @returns {Array}
      */
     getObjectArray() {
-        
+
     }
     /**
      * Override in subclasses to check for collision between Entity SVG and Player SVG.
@@ -90,6 +90,6 @@ class Entity {
      * @returns {}
      */
     checkCollisions() {
-        
+
     }
 }

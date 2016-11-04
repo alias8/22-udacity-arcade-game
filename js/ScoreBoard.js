@@ -14,4 +14,3 @@
         this.gemsCollectedCount.bringToFront();
     }
 }
-
