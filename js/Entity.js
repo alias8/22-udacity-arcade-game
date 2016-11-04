@@ -2,6 +2,7 @@
  * The super class to Player, Enemy, Gem, and Rock. Suitable for all future classes that move across the canvas.
  * This class requires each Entity to have a image sprite and image svg loaded in Resources.js
  * @abstract
+ * @author James Kirk <jameskirk8@gmail.com>
  */
 
 class Entity {

@@ -9,3 +9,9 @@
 img {
     display: none;
 }
+
+p {
+    font-family: Calibri, sans-serif;
+    text-align: center;
+    font-size: large;
+}
