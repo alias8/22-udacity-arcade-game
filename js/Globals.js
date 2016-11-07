@@ -18,7 +18,7 @@ document.addEventListener('keyup', function (e) {
         40: 'down'
     };
 
-    PLAYER._handleInput(allowedKeys[e.keyCode]);
+    PLAYER.handleInput(allowedKeys[e.keyCode]);
 });
 
 /** @global */

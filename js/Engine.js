@@ -23,7 +23,7 @@ function init() {
     backgroundLayer.name = 'Background Layer';
     backgroundLayer.sendToBack();
     backgroundLayer.visible = true;
-    for (let row = 0; row < numRows; row++) {
+    for (var row = 0; row < numRows; row++) {
         for (var col = 0; col < numCols; col++) {
             var image = paper.project.layers['Resources Layer'].children[rowImages[row]].clone();
             backgroundLayer.addChild(image);
@@ -48,9 +48,6 @@ function init() {
     initialised = true;
 
 }
-
-
-
 
 function update(event) {
     var dt = event.delta;
@@ -122,11 +119,3 @@ function renderEntities() {
         rock.render();
     });
 }
-
-
-
-
-
-
-
-
