@@ -6,6 +6,21 @@
     display: block;
 }
 
-img {
-    display: none;
+p {
+    font-family: Calibri, sans-serif;
+    text-align: center;
+    font-size: large;
+}
+
+h2 {
+    font-family: Calibri, sans-serif;
+    text-align: center;
+    font-size: large;
+}
+
+ul {
+    font-family: Calibri, sans-serif;
+    text-align: center;
+    font-size: large;
+    list-style-position: inside;
 }

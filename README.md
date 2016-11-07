@@ -2,7 +2,7 @@
 # Front-End Web Developer Nanodegree
 
 Assignment submission for Udacity Front-End Web Developer Nanodegree "Project: Classic Arcade Game Clone". 
-Play from the [GitHub Pages](https://alias8.github.io/) or use a web server to run index.html and play 
+Play from the [GitHub Pages](https://alias8.github.io/22-udacity-arcade-game/) or use a web server to run index.html and play 
 my version of frogger from the [source](https://github.com/alias8/22-udacity-arcade-game). 
 This is a fork of the original [here](https://github.com/udacity/frontend-nanodegree-arcade-game).
 Features improvements to original with collision detection with svg path instead of bounding rectangle. 
